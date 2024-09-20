@@ -34,14 +34,15 @@ class MyCars extends \Magento\Framework\View\Element\Template
     }
 }
     public function getCarsDetails($id){
-        $headr = array();
+       
         $apiUrl = 'https://exam.razoyo.com/api/cars';
 
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $apiUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        //curl_setopt($curl, CURLOPT_HEADER, 1);
         $response = curl_exec($curl);
+        $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        if($httpcode=='200'){
         curl_close($curl);
         curl_setopt($curl, CURLOPT_HEADERFUNCTION,
              function($curl, $header) use (&$headers)
@@ -66,10 +67,15 @@ class MyCars extends \Magento\Framework\View\Element\Template
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             $response = curl_exec($curl);
             curl_close($curl);
+            $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        if($httpcode=='200'){
             $collection = json_decode($response,true);
             return $collection['car'];
         }
-        return null;
+        return '';
+        }
+     }
+        return '';
     }
     /**
      * @return boolean
