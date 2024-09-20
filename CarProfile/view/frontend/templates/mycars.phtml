@@ -15,7 +15,7 @@ $_gridrecords = $block->getCollection();// get collection which we set in block 
                 </tr>
             </thead>
             <tbody>
-                <?php  // read collection as magento1.x and display in list 
+                <?php  
                        foreach ($_gridrecords as $_gridrecord): ?>
                          <?php $cardata = $block->getCarsDetails($_gridrecord);?>
                     <tr>
