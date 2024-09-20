@@ -22,8 +22,12 @@ class Index extends \Magento\Framework\View\Element\Template
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
         curl_close($curl);
-        $collection = json_decode($response,true);
-        return $collection['cars'];
+         $httpcode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        if($httpcode=='200'){
+            $collection = json_decode($response,true);
+            return $collection['cars'];
+        }
+        return '';
     }
     
     /**
