@@ -1,0 +1,49 @@
+<?php
+
+
+$_gridrecords = $block->getCollection();// get collection which we set in block class ?>
+<?php if ($_gridrecords && count($_gridrecords)): ?>
+    <form class="form carprofile"
+      action="<?= $block->getUrl('carprofile/carprofile/save') ?>"
+      id="carprofile-form"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      >
+    <div class="table-wrapper cars-history">
+        <table class="data table table-car-items history" id="my-car-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col select"><?php echo __('Add To My Car Selection') ?></th>
+                    <th scope="col" class="col id"><?php echo __('ID #') ?></th>
+                    <th scope="col" class="col year"><?php echo __('Year') ?></th>
+                    <th scope="col" class="col make"><?php echo __('Make') ?></th>
+                    <th scope="col" class="col model"><?php echo __('Model') ?></th>
+                    <th scope="col" class="col ">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php  // read collection as magento1.x and display in list 
+                       foreach ($_gridrecords as $_gridrecord): ?>
+                    <tr>
+                        <td class="col select"><input type="checkbox" name="vehicle-<?php echo $_gridrecord['id'] ?>" value="<?php echo $_gridrecord['id'] ?>"></td>
+                        <td class="col id"><?php echo $_gridrecord['id'] ?></td>
+                        <td class="col year"><?php echo $_gridrecord['year'] ?></td>
+                        <td class="col make"><?php echo $_gridrecord['make'] ?></td>
+                        <td class="col model"><?php echo $_gridrecord['model'] ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Add to My Cars Profile')) ?></span>
+            </button>
+        </div>
+    </div>
+    </form>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('grid records not available.'); ?></span></div>
+<?php endif ?>

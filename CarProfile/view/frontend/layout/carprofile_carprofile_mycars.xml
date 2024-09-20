@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>      
+        <referenceContainer name="content">         
+            <block class="Razoyo\CarProfile\Block\CarProfile\MyCars" name="mycars" template="mycars.phtml">
+            </block>
+        </referenceContainer>      
+    </body>
+</page>

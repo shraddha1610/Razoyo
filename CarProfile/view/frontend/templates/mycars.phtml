@@ -1,0 +1,56 @@
+<?php
+
+
+$_gridrecords = $block->getCollection();// get collection which we set in block class ?>
+<?php if ($_gridrecords && count($_gridrecords)): ?>
+    <div class="table-wrapper cars-history">
+        <table class="data table table-car-items history" id="my-car-table">
+            <caption class="table-caption"><?php echo __('Grid Record') ?></caption>
+            <thead>
+                <tr>
+                    <th scope="col" class="col id"><?php echo __('ID #') ?></th>
+                    <th scope="col" class="col image"><?php echo __('Image') ?></th>
+                    <th scope="col" class="col info"><?php echo __('Basic Information') ?></th>
+                    <th scope="col" class="col action"><?php echo __('Action') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php  // read collection as magento1.x and display in list 
+                       foreach ($_gridrecords as $_gridrecord): ?>
+                         <?php $cardata = $block->getCarsDetails($_gridrecord);?>
+                    <tr>
+                        <td class="col id"><?php echo $cardata['id'] ?></td>
+                        <td class="col image"><img src="<?php echo $cardata['image'] ?>"/></td>
+                        <td class="col info">
+                        <p><b>Year:</b><?php echo $cardata['year'] ?></p>
+                        <p><b>Make:</b><?php echo $cardata['make'] ?></p>
+                        <p><b>Model:</b><?php echo $cardata['model'] ?></p>
+                        <p><b>Price:</b><?php echo $cardata['price'] ?></p>
+                        <p><b>Seats:</b><?php echo $cardata['seats'] ?></p>
+                        <p><b>MPG:</b><?php echo $cardata['mpg'] ?></p>
+                       </td>
+                       <td class="col select">
+                       <form class="form carprofile"
+      action="<?= $block->getUrl('carprofile/carprofile/remove') ?>"
+      id="carprofile-form"
+      method="post"
+      data-hasrequired="<?= $block->escapeHtmlAttr(__('* Required Fields')) ?>"
+      data-mage-init='{"validation":{}}'>
+      <input type="hidden" value='<?php echo $cardata['id'] ?>'name='carid'/>
+      <div class="actions-toolbar">
+        <div class="primary">
+            <button type="submit" title="<?= $block->escapeHtmlAttr(__('Submit')) ?>" class="action submit primary">
+                <span><?= $block->escapeHtml(__('Remove Car')) ?></span>
+            </button>
+        </div>
+    </div>
+    </form>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    
+<?php else: ?>
+    <div class="message info empty"><span><?php echo __('grid records not available.'); ?></span></div>
+<?php endif ?>
