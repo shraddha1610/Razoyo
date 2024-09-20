@@ -23,7 +23,7 @@ $_gridrecords = $block->getCollection();// get collection which we set in block 
                 </tr>
             </thead>
             <tbody>
-                <?php  // read collection as magento1.x and display in list 
+                <?php  
                        foreach ($_gridrecords as $_gridrecord): ?>
                     <tr>
                         <td class="col select"><input type="checkbox" name="vehicle-<?php echo $_gridrecord['id'] ?>" value="<?php echo $_gridrecord['id'] ?>"></td>
